@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration debug="true">
+  <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+    <appender-ref ref="TEMP"/>
+    <appender-ref ref="CONSOLE"/>
+  </appender>
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] - %m%n"/>
+    </layout>
+  </appender>
+  <appender name="TEMP" class="org.apache.log4j.FileAppender">
+    <param name="File" value="log4j"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] - %m%n"/>
+    </layout>
+  </appender>
+  <root>
+    <priority value="info"/>
+    <appender-ref ref="ASYNC"/>
+  </root>
+</log4j:configuration>
