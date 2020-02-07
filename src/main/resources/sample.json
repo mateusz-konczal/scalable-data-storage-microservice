@@ -1,0 +1,25 @@
+{
+  "device": "utp402ztc",
+  "value" : [
+    {
+      "register": "length",
+      "timestamp": 1558884104000,
+      "asLong": 174034
+    },
+    {
+      "register": "F",
+      "timestamp": 1558884104500,
+      "asDouble": 50.01
+    },
+    {
+      "register": "status",
+      "timestamp": 1559051214255,
+      "asString": "failure"
+    },
+    {
+      "register": "F",
+      "timestamp": 1559051214256,
+      "asDouble": 50.02
+    }
+  ]
+}
