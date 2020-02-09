@@ -22,12 +22,16 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
 
   private Vertx vertx;
   private CassandraClient cassandraClient;
-  private long currentTimeMillis;
+  private KafkaVerticle kafkaVerticle;
+  private long messageCounter = 0L;
+  private long sumAllTimes = 0L;
+  private double averageTime = 0;
   private static final Logger LOGGER_CASSANDRA = LogManager.getLogger(CassandraVerticle.class);
 
-  public CassandraVerticle(Vertx vertx, CassandraClient cassandraClient) {
+  public CassandraVerticle(Vertx vertx, CassandraClient cassandraClient, KafkaVerticle kafkaVerticle) {
     this.vertx = vertx;
     this.cassandraClient = cassandraClient;
+    this.kafkaVerticle = kafkaVerticle;
   }
 
   @Override

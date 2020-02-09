@@ -33,7 +33,7 @@ public class Main implements SharedConstants {
     vertx.deployVerticle(kafkaVerticle);
 
     DeploymentOptions deploymentOptions = new DeploymentOptions().setInstances(CASSANDRA_VERTICLE_INSTANCES);
-    vertx.deployVerticle(() -> new CassandraVerticle(vertx, cassandraClient), deploymentOptions);
+    vertx.deployVerticle(() -> new CassandraVerticle(vertx, cassandraClient, kafkaVerticle), deploymentOptions);
 
     LOGGER.info("Main thread completed");
   }
