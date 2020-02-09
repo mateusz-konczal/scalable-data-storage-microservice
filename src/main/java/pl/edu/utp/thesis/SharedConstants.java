@@ -10,7 +10,7 @@ public interface SharedConstants {
 
   String KAFKA_SERVER_DEFAULT = "localhost:9092";
   String KAFKA_GROUP_ID = "my_group";
-  String KAFKA_AUTO_OFFSET_RESET = "earliest";
+  String KAFKA_AUTO_OFFSET_RESET = "latest";
   String KAFKA_AUTO_COMMIT = "true";
   String KAFKA_TOPIC = "datastore";
 }
