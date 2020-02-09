@@ -20,10 +20,15 @@ public class KafkaVerticle extends AbstractVerticle implements SharedConstants {
 
   private Vertx vertx;
   private KafkaConsumer<String, String> kafkaConsumer = null;
+  private long initialTimeMillis;
   private static final Logger LOGGER_KAFKA = LogManager.getLogger(KafkaVerticle.class);
 
   public KafkaVerticle(Vertx vertx) {
     this.vertx = vertx;
+  }
+
+  public long getInitialTimeMillis() {
+    return initialTimeMillis;
   }
 
   @Override
@@ -41,6 +46,7 @@ public class KafkaVerticle extends AbstractVerticle implements SharedConstants {
     kafkaConsumer = KafkaConsumer.create(vertx, config);
 
     kafkaConsumer.handler(record -> {
+      initialTimeMillis = System.currentTimeMillis();
       LOGGER_KAFKA.info("Processing: key = " + record.key() + ", value = " + record.value() +
         ", partition = " + record.partition() + ", offset = " + record.offset());
       try {

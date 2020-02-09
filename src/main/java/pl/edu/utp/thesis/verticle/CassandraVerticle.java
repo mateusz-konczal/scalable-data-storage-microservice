@@ -41,7 +41,6 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
 
     eventBus.consumer(EVENT_BUS_ADDRESS, message -> {
       try {
-        currentTimeMillis = System.currentTimeMillis();
         Device device = Json.decodeValue(message.body().toString(), Device.class);
         LOGGER_CASSANDRA.info("Save the device with parameters: " + device.toString());
         if (device.getDeviceName() == null) {
@@ -114,8 +113,15 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
         cassandraClient.execute(batchStatement, executed -> {
           if (executed.succeeded()) {
             LOGGER_CASSANDRA.info("The given batch executed successfully");
-            long executionTimeMillis = System.currentTimeMillis() - currentTimeMillis;
-            LOGGER_CASSANDRA.info("Working time of Cassandra verticle: " + executionTimeMillis + " ms");
+            long executionTimeMillis = System.currentTimeMillis() - kafkaVerticle.getInitialTimeMillis();
+            LOGGER_CASSANDRA.info("Message processing time: " + executionTimeMillis + " ms");
+            if (executionTimeMillis < 4000) {
+              ++messageCounter;
+              sumAllTimes += executionTimeMillis;
+              averageTime = (double) sumAllTimes / messageCounter;
+              LOGGER_CASSANDRA.info("message counter: " + messageCounter +
+                ", average message processing time: " + averageTime);
+            }
           } else {
             LOGGER_CASSANDRA.error("Unable to execute the batch: " + executed.cause().getMessage());
           }
