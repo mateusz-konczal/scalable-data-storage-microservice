@@ -5,7 +5,7 @@ public interface SharedConstants {
   int CASSANDRA_DEFAULT_PORT = 9042;
   String CASSANDRA_KEYSPACE = "datastore";
 
-  int CASSANDRA_VERTICLE_INSTANCES = 4;
+  int CASSANDRA_VERTICLE_INSTANCES = 3;
   String EVENT_BUS_ADDRESS = "cassandra.save";
 
   String KAFKA_SERVER_DEFAULT = "localhost:9092";
