@@ -52,7 +52,7 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
           LOGGER_CASSANDRA.warn("The " + device.getDeviceName() + " device is not supported");
           return;
         }
-        workWithCassandra(device, cassandraClient);
+        workWithCassandra(device);
       } catch (Exception e) {
         LOGGER_CASSANDRA.error("Exception while processing: " + message.body().toString() + ": " + e.getMessage());
       }
@@ -73,7 +73,7 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
     }
   }
 
-  private void workWithCassandra(Device device, CassandraClient cassandraClient) {
+  private void workWithCassandra(Device device) {
     String rawQuery = "INSERT INTO %s.%s " +
       "(label, year, month, day, hour, minute, second, millisecond, measured, recorded, asdouble, aslong, asstring) " +
       "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -120,7 +120,7 @@ public class CassandraVerticle extends AbstractVerticle implements SharedConstan
               sumAllTimes += executionTimeMillis;
               averageTime = (double) sumAllTimes / messageCounter;
               LOGGER_CASSANDRA.info("message counter: " + messageCounter +
-                ", average message processing time: " + averageTime);
+                ", average message processing time: " + averageTime + " ms");
             }
           } else {
             LOGGER_CASSANDRA.error("Unable to execute the batch: " + executed.cause().getMessage());
