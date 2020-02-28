@@ -190,3 +190,4 @@ README.adoc
 .mvn/
 mvnw
 mvnw.cmd
+log4j
